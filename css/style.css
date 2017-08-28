@@ -42,11 +42,20 @@ h2 {
 	font-size: 20px;
 }
 
-a {
+a{
 	color: #0D2C40;
 	font-weight: 600;
 	font-size: 18px;
 	margin: 0 20px;
+}
+
+nav a {
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+	border-color: white;
 }
 
 p {
@@ -88,4 +97,9 @@ footer {
 
 .message {
 	float: right;
+}
+
+.name {
+	color: #F15B31;
+	font-weight: 700;
 }
