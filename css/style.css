@@ -18,7 +18,7 @@ main {
 	margin: 35px auto;
 }
 
-img { 
+img {
 	margin: 40px 8px;
 }
 
@@ -53,4 +53,16 @@ p {
 	font-family: "Droid Serif";
 	line-height: 26px;
 	font-size: 18px;
+}
+
+footer {
+	text-transform: uppercase;
+	font-family: 'Raleway';
+	padding: 0 20px;
+	background-color: #0D2C40;
+	color: white;
+	font-size: 14px;
+	letter-spacing: .8em;
+	font-weight: 500;
+
 }
