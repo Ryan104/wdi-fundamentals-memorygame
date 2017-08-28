@@ -55,6 +55,21 @@ p {
 	font-size: 18px;
 }
 
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.challenge, .contact {
+	display: inline-block;
+	width: 50%;
+	float: left;
+}
+
 footer {
 	text-transform: uppercase;
 	font-family: 'Raleway';
@@ -65,4 +80,12 @@ footer {
 	letter-spacing: .8em;
 	font-weight: 500;
 
+}
+
+.copyright {
+	float: left;
+}
+
+.message {
+	float: right;
 }
