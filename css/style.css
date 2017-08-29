@@ -64,6 +64,35 @@ p {
 	font-size: 18px;
 }
 
+.score {
+	float: left;
+}
+
+.score-number {
+	font-size: 24px;
+	color: #F15B31;
+}
+
+button {
+	background-color: #0D2C40;
+	color: #F15B31;
+	padding: 15px 30px;
+	font-size: 18px;
+	font-family: "Droid Serif", Serif;
+	float: right;
+	border: none;
+	display: inline-block;
+	margin: 5px;
+}
+
+.feedback {
+	clear: both;
+	margin: 0 auto;
+	text-transform: uppercase;
+	font-style: italic;
+
+}
+
 .clearfix:after {
 	visibility: hidden;
 	display: block;
