@@ -30,7 +30,14 @@ let matchCount = 0;
 const defaultMessage = "Choose a card";
 const matchMessage = "You found a match!";
 const mismatchMessage = "Sorry, try again...";
-const winMessage = "Nice! You found all the matches in X moves";
+const winMessage = "You found all the matches in X moves!";
+
+const shuffleCards = () => {
+	for (let i=0; i < 10; i++){
+		randIndex = Math.floor(Math.random() * cards.length);
+		cards.push(cards.splice(randIndex, 1)[0]);
+	}
+};
 
 const createBoard = () => {
 	const board = document.getElementById('game-board');
@@ -100,6 +107,7 @@ const createBoard = () => {
 	}
 
 	this.createCards = function() {
+		shuffleCards();
 		for (var i in cards) {
 			cardElement = document.createElement('img');
 			cardElement.setAttribute('src', 'images/back.png');

@@ -19,7 +19,8 @@ main {
 }
 
 img {
-	margin: 40px 8px;
+	margin: 10px 8px;
+	height: 200px;
 }
 
 h1, h2, a {
