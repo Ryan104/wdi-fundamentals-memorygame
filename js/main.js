@@ -25,6 +25,7 @@ const cards = [
 let cardsInPlay = [];
 let moveCount = 0;
 
+
 const checkForMatch = () => {
 	if (cardsInPlay[0] === cardsInPlay[1]) {
 		console.log("Congrats! You found a match!");
@@ -50,11 +51,13 @@ const checkForMatch = () => {
 const createBoard = () => {
 	const board = document.getElementById('game-board');
 	const moveElement = document.getElementById('moves');
+	const resetButtonElement = document.getElementById('resetButton');
 
 	this.flipCard = function(event) {
 		// Increase Move Count/Score
 		moveCount += 1;
 		moveElement.innerHTML = moveCount;
+
 		const cardID = this.getAttribute('data-id');
 		const card = cards[cardID];
 		this.setAttribute('src', card.cardImage);
@@ -66,16 +69,31 @@ const createBoard = () => {
 			checkForMatch();
 			// Reset cardsInPlay
 			cardsInPlay = [];
-		}		
-	}
+		}
+	};
 
-	for (i in cards) {
-		cardElement = document.createElement('img');
-		cardElement.setAttribute('src', 'images/back.png');
-		cardElement.setAttribute('data-id', i);
-		cardElement.addEventListener('click', this.flipCard, false);
-		board.appendChild(cardElement);
-	}
-}
+	this.createCards = function() {
+		for (i in cards) {
+			cardElement = document.createElement('img');
+			cardElement.setAttribute('src', 'images/back.png');
+			cardElement.setAttribute('data-id', i);
+			cardElement.addEventListener('click', this.flipCard, false);
+			board.appendChild(cardElement);
+		}
+	};
+
+	// REST BUTTON
+	resetButton.addEventListener('click', () => {
+		cardsInPlay = [];
+		moveCount = 0;
+		moveElement.innerHTML = moveCount;
+		// Delete and recreate cards
+		board.innerHTML = "";
+		createCards();
+	});
+
+	createCards();
+};
+
 
 createBoard();
