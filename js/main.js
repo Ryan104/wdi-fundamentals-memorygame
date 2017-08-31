@@ -24,6 +24,10 @@ const cards = [
 
 let cardsInPlay = [];
 let moveCount = 0;
+let matchCount = 0;
+
+const matchMessage = "Congrats! You found a match!";
+const mismatchMessage = "Sorry, try again...";
 
 const createBoard = () => {
 	const board = document.getElementById('game-board');
@@ -40,7 +44,6 @@ const createBoard = () => {
 		const card = cards[cardID];
 		this.setAttribute('src', card.cardImage);
 		cardsInPlay.push(card.rank);
-		console.log('User flipped ' + card.rank);
 		postMessage('You flipped a ' + card.rank);
 		// Checkfor match every even move number
 		if (moveCount % 2 === 0){
@@ -52,11 +55,10 @@ const createBoard = () => {
 
 	this.checkForMatch = function() {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
-			console.log("Congrats! You found a match!");
-			postMessage("Congrats! You found a match!");
+			postMessage(matchMessage);
+			matchCount += 1;
 		} else {
-			console.log("Sorry, try again...");
-			postMessage("Sorry, try again...");
+			postMessage(mismatchMessage);
 		}
 	}
 
@@ -76,15 +78,31 @@ const createBoard = () => {
 		if (moveCount % 2 === 1) {
 			messageElement.innerHTML = "";
 		}
+		// Create message element
+		messageP = document.createElement('p');
+		messageP.textContent = message;
 
-		// Display message
-		messageElement.innerHTML += ('<p>' + message + '</p>');
+		// Conditionally style the message
+		switch (message) {
+			case matchMessage:
+				messageP.className = 'matchMessage';
+				break;
+			case mismatchMessage:
+				messageP.className = 'missmatchMessage';
+				break;
+			default:
+				messageP.className = 'flipMessage';
+		};
+
+		// Add element to DOM
+		messageElement.appendChild(messageP);
 	};
 
 	// REST BUTTON
 	resetButton.addEventListener('click', () => {
 		cardsInPlay = [];
 		moveCount = 0;
+		matchCount = 0;
 		moveElement.innerHTML = moveCount;
 		messageElement.innerHTML = "<p>Choose a card</p>";
 		// Delete and recreate cards

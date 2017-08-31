@@ -86,11 +86,23 @@ button {
 }
 
 .feedback {
-	clear: both;
+	display: inline-block;
 	margin: 0 auto;
-	text-transform: uppercase;
+	text-transform: lowercase;
 	font-style: italic;
+	height: 110px;
+}
 
+.feedback p {
+	line-height: 10px;
+}
+
+.matchMessage {
+	color: green;
+}
+
+.missmatchMessage {
+	color: red;
 }
 
 .clearfix:after {
