@@ -117,11 +117,14 @@ button:hover {
 	color: red;
 }
 
-.winMessage {
+.feedback .winMessage {
 	font-weight: bold;
 	font-size: 22px;
 	text-transform: uppercase;
-	text-shadow: 2px 2px rgba(0, 0, 0, .25);
+	/*text-shadow: 2px 2px rgba(0, 0, 0, .25);*/
+	border-top: 1px solid rgba(0, 0, 0, .5);
+	border-bottom: 1px solid rgba(0, 0, 0, .5);
+	line-height: 36px;
 }
 
 .clearfix:after {

@@ -39,20 +39,39 @@ const createBoard = () => {
 	const messageElement = document.getElementById('statusMessage');
 
 	this.flipCard = function(event) {
-		// Increase Move Count/Score
-		moveCount += 1;
-		moveElement.innerHTML = moveCount;
+		// Only flipCard() that isn't already flipped...
+		if (this.getAttribute('src') === 'images/back.png'){
+			// Increase Move Count/Score
+			moveCount += 1;
+			moveElement.innerHTML = moveCount;
 
-		const cardID = this.getAttribute('data-id');
-		const card = cards[cardID];
-		this.setAttribute('src', card.cardImage);
-		cardsInPlay.push(card.rank);
-		postMessage('You flipped a ' + card.rank);
-		// Checkfor match every even move number
-		if (moveCount % 2 === 0){
-			checkForMatch();
-			// Reset cardsInPlay
-			cardsInPlay = [];
+			// Flip over unmatched cards
+			if (moveCount % 2 === 1){
+				// Loop through cards and 'flip over' face up cards
+				// ie update card images
+				boardState = board.childNodes;
+				for (var child in boardState) {
+					if (boardState[child].className === 'flipped') {
+						boardState[child].setAttribute('src', 'images/back.png');
+						boardState[child].removeAttribute('class');
+					} else if (boardState[child].className === 'matched'){
+						boardState[child].setAttribute('src', 'images/blank.png');
+					}
+				}
+			}
+
+			const cardID = this.getAttribute('data-id');
+			const card = cards[cardID];
+			this.setAttribute('src', card.cardImage);
+			this.className = 'flipped';
+			cardsInPlay.push(card.rank);
+			postMessage('You flipped a ' + card.rank);
+			// Checkfor match every even move number
+			if (moveCount % 2 === 0){
+				checkForMatch();
+				// Reset cardsInPlay
+				cardsInPlay = [];
+			}
 		}
 	};
 
@@ -65,7 +84,14 @@ const createBoard = () => {
 				postMessage(winMessage);
 			} else {
 				// The game continues
-				postMessage(matchMessage);				
+				// Set 'flipped' cards to 'matched'
+				boardState = board.childNodes;
+				for (var child in boardState) {
+					if (boardState[child].className === 'flipped') {
+						boardState[child].className = 'matched';
+					}
+				}
+				postMessage(matchMessage);
 			}
 		} else {
 			// Not a match
@@ -74,7 +100,7 @@ const createBoard = () => {
 	}
 
 	this.createCards = function() {
-		for (i in cards) {
+		for (var i in cards) {
 			cardElement = document.createElement('img');
 			cardElement.setAttribute('src', 'images/back.png');
 			cardElement.setAttribute('data-id', i);
@@ -89,6 +115,7 @@ const createBoard = () => {
 		if (moveCount % 2 === 1) {
 			messageElement.innerHTML = "";
 		}
+
 		// Create message element
 		messageP = document.createElement('p');
 		messageP.textContent = message.replace('X', moveCount);
@@ -106,6 +133,7 @@ const createBoard = () => {
 				break;
 			case defaultMessage:
 				messageP.className = 'defaultMessage';
+				messageElement.innerHTML = "";
 				break;
 			default:
 				messageP.className = 'flipMessage';
@@ -121,9 +149,10 @@ const createBoard = () => {
 		moveCount = 0;
 		matchCount = 0;
 		moveElement.innerHTML = moveCount;
-		postMessage(defaultMessage);
+
 		// Delete and recreate cards
 		board.innerHTML = "";
+		postMessage(defaultMessage);
 		createCards();
 	});
 
