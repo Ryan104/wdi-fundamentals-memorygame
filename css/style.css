@@ -74,15 +74,21 @@ p {
 }
 
 button {
-	background-color: #0D2C40;
-	color: #F15B31;
+	background-color: #00A6B3;
+	color: #0D2C40;
 	padding: 15px 30px;
 	font-size: 18px;
-	font-family: "Droid Serif", Serif;
+	font-family: "Raleway", Serif;
 	float: right;
 	border: none;
 	display: inline-block;
 	margin: 5px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #F15B31;
 }
 
 .feedback {
@@ -97,12 +103,25 @@ button {
 	line-height: 10px;
 }
 
+.defaultMessage, .winMessage {
+	font-family: 'Raleway';
+	color: #F15B31;
+	font-style: normal;
+}
+
 .matchMessage {
 	color: green;
 }
 
 .missmatchMessage {
 	color: red;
+}
+
+.winMessage {
+	font-weight: bold;
+	font-size: 22px;
+	text-transform: uppercase;
+	text-shadow: 2px 2px rgba(0, 0, 0, .25);
 }
 
 .clearfix:after {

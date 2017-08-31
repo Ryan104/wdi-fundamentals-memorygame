@@ -26,8 +26,11 @@ let cardsInPlay = [];
 let moveCount = 0;
 let matchCount = 0;
 
-const matchMessage = "Congrats! You found a match!";
+// Messages
+const defaultMessage = "Choose a card";
+const matchMessage = "You found a match!";
 const mismatchMessage = "Sorry, try again...";
+const winMessage = "Nice! You found all the matches in X moves";
 
 const createBoard = () => {
 	const board = document.getElementById('game-board');
@@ -55,9 +58,17 @@ const createBoard = () => {
 
 	this.checkForMatch = function() {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
-			postMessage(matchMessage);
+			// Its a match
 			matchCount += 1;
+			if (cards.length/2 === matchCount) {
+				// The game is over
+				postMessage(winMessage);
+			} else {
+				// The game continues
+				postMessage(matchMessage);				
+			}
 		} else {
+			// Not a match
 			postMessage(mismatchMessage);
 		}
 	}
@@ -80,7 +91,7 @@ const createBoard = () => {
 		}
 		// Create message element
 		messageP = document.createElement('p');
-		messageP.textContent = message;
+		messageP.textContent = message.replace('X', moveCount);
 
 		// Conditionally style the message
 		switch (message) {
@@ -89,6 +100,12 @@ const createBoard = () => {
 				break;
 			case mismatchMessage:
 				messageP.className = 'missmatchMessage';
+				break;
+			case winMessage:
+				messageP.className = 'winMessage';
+				break;
+			case defaultMessage:
+				messageP.className = 'defaultMessage';
 				break;
 			default:
 				messageP.className = 'flipMessage';
@@ -104,12 +121,14 @@ const createBoard = () => {
 		moveCount = 0;
 		matchCount = 0;
 		moveElement.innerHTML = moveCount;
-		messageElement.innerHTML = "<p>Choose a card</p>";
+		postMessage(defaultMessage);
 		// Delete and recreate cards
 		board.innerHTML = "";
 		createCards();
 	});
 
+	// Setup board
+	postMessage(defaultMessage);
 	createCards();
 };
 
