@@ -23,6 +23,7 @@ const cards = [
 ];
 
 let cardsInPlay = [];
+let moveCount = 0;
 
 const checkForMatch = () => {
 	if (cardsInPlay[0] === cardsInPlay[1]) {
@@ -48,16 +49,23 @@ const checkForMatch = () => {
 
 const createBoard = () => {
 	const board = document.getElementById('game-board');
+	const moveElement = document.getElementById('moves');
 
 	this.flipCard = function(event) {
+		// Increase Move Count/Score
+		moveCount += 1;
+		moveElement.innerHTML = moveCount;
 		const cardID = this.getAttribute('data-id');
 		const card = cards[cardID];
 		this.setAttribute('src', card.cardImage);
 		cardsInPlay.push(card.rank);
 		console.log('User flipped ' + card.rank);
 		console.log(card.cardImage);
-		if (cardsInPlay.length === 2){
+		// Checkfor match every even move number
+		if (moveCount % 2 === 0){
 			checkForMatch();
+			// Reset cardsInPlay
+			cardsInPlay = [];
 		}		
 	}
 
