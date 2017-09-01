@@ -1,4 +1,5 @@
-
+// Cards array already in html
+/*
 const cards = [
 	{
 		rank: "king",
@@ -8,7 +9,7 @@ const cards = [
 	{
 		rank: "queen",
 		suit: "diamonds",
-		cardImage: "images/queen-of-diamonds.png"
+		cardImage: "images/queen_of_diamonds.png"
 	},
 	{
 		rank: "king",
@@ -18,9 +19,10 @@ const cards = [
 	{
 		rank: "queen",
 		suit: "hearts",
-		cardImage: "images/queen-of-hearts.png"
+		cardImage: "images/queen_of_hearts.png"
 	}
 ];
+*/
 
 let cardsInPlay = [];
 let moveCount = 0;
@@ -33,7 +35,7 @@ const mismatchMessage = "Sorry, try again...";
 const winMessage = "You found all the matches in X moves!";
 
 const shuffleCards = () => {
-	for (let i=0; i < 10; i++){
+	for (let i=0; i < 100; i++){
 		randIndex = Math.floor(Math.random() * cards.length);
 		cards.push(cards.splice(randIndex, 1)[0]);
 	}
